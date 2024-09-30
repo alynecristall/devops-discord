@@ -1,4 +1,4 @@
-name: Run Tests
+name: Teste de Unidade
 
 on:
   pull_request:
@@ -8,9 +8,18 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
 
-      - name: Run Tests
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18'
+
+      - name: Instalar dependências
+        run: npm install
+
+      - name: Executar testes
         run: node app.test.js
