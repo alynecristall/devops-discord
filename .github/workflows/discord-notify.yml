@@ -1,0 +1,22 @@
+name: Discord Webhook
+
+on:
+  push:
+    branches:
+      - main  # Monitora pushes no branch main
+  pull_request:
+    branches:
+      - main  # Monitora Pull Requests direcionadas ao branch main
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Send message to Discord
+        run: |
+          curl -H "Content-Type: application/json" \
+            -X POST \
+            -d '{"content": "Novo commit ou Pull Request para o repositório!"}' \
+            ${{ secrets.DISCORD_WEBHOOK }}
